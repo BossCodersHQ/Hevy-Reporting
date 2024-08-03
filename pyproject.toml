@@ -4,10 +4,15 @@ version = "0.1.0"
 description = ""
 authors = ["Bosire Nyakundi <Nyakundi@hotmail.co.uk>"]
 readme = "README.md"
-packages = [{include = "hevy_reporting"}]
+packages = [{include = "hevy"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
+fastapi = "^0.112.0"
+pydantic = "^2.8.2"
+requests = "^2.32.3"
+asyncio = "^3.4.3"
+aiohttp = "^3.10.0"
 
 
 [build-system]

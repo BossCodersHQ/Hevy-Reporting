@@ -1,4 +1,4 @@
-EXAMPLE_PAGINATED_WORKOUTS = {
+EXAMPLE_PAGINATED_WORKOUT_EVENTS = {
   "page": 1,
   "page_count": 5,
   "events": [
@@ -25,8 +25,8 @@ EXAMPLE_PAGINATED_WORKOUTS = {
                 "set_type": "normal",
                 "weight_kg": 100,
                 "reps": 10,
-                "distance_meters": null,
-                "duration_seconds": null,
+                "distance_meters": None,
+                "duration_seconds": None,
                 "rpe": 9.5
               }
             ]
@@ -38,6 +38,42 @@ EXAMPLE_PAGINATED_WORKOUTS = {
       "type": "deleted",
       "id": "efe6801c-4aee-4959-bcdd-fca3f272821b",
       "deleted_at": "2021-09-13T12:00:00Z"
+    }
+  ]
+}
+
+EX_PAGINATED_WORKOUTS = {
+  "page": 1,
+  "page_count": 5,
+  "workouts": [
+    {
+      "id": "b459cba5-cd6d-463c-abd6-54f8eafcadcb",
+      "title": "Morning Workout 💪",
+      "description": "Pushed myself to the limit today!",
+      "start_time": "2021-09-14T12:00:00Z",
+      "end_time": "2021-09-14T12:00:00Z",
+      "updated_at": "2021-09-14T12:00:00Z",
+      "created_at": "2021-09-14T12:00:00Z",
+      "exercises": [
+        {
+          "index": 0,
+          "title": "Bench Press (Barbell)",
+          "notes": "Paid closer attention to form today. Felt great!",
+          "exercise_template_id": "05293BCA",
+          "supersets_id": 0,
+          "sets": [
+            {
+              "index": 0,
+              "set_type": "normal",
+              "weight_kg": 100,
+              "reps": 10,
+              "distance_meters": None,
+              "duration_seconds": None,
+              "rpe": 9.5
+            }
+          ]
+        }
+      ]
     }
   ]
 }
