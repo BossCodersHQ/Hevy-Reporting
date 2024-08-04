@@ -14,6 +14,7 @@ requests = "^2.32.3"
 asyncio = "^3.4.3"
 aiohttp = "^3.10.0"
 python-dotenv = "^1.0.1"
+async-lru = "^2.0.4"
 
 
 [build-system]
