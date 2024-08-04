@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["Bosire Nyakundi <Nyakundi@hotmail.co.uk>"]
 readme = "README.md"
-packages = [{include = "hevy"}]
+packages = [{include = "hevy"},{include = "reporting"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -15,6 +15,7 @@ asyncio = "^3.4.3"
 aiohttp = "^3.10.0"
 python-dotenv = "^1.0.1"
 async-lru = "^2.0.4"
+uvicorn = "^0.30.5"
 
 
 [build-system]

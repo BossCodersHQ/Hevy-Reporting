@@ -1,7 +1,7 @@
 .venv/
 *.iml
 .idea/
-__pycache__/
+**/__pycache__/
 scratch.py
 
 # Ignore all .env files

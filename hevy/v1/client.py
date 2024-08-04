@@ -3,7 +3,7 @@ import requests
 import aiohttp
 import asyncio
 from datetime import datetime, date, timedelta
-import hevy.conf as conf
+import reporting.conf as conf
 from hevy.v1.schemas.custom import PaginatedWorkouts, PaginatedExerciseTemplates
 from hevy.v1.schemas.base import Workout, ExerciseTemplate
 from typing import AsyncGenerator, Generator
@@ -88,46 +88,11 @@ class HevyClientV1:
             return exercise_template
 
 
-async def main():
-    client = HevyClientV1(
-        root_url=conf.get_hevy_api_root_url(), api_key=conf.get_hevy_api_key()
-    )
 
-    exercise_templates = {}
-
-    target_date = datetime.today() - timedelta(days=7)
-    target_date = target_date.date()
-    body_part_counter = Counter()
-    async for workout in client.list_workouts_after_date(target_date):
-        for exercise in workout.exercises:
-            exercise_template_id = exercise.exercise_template_id
-
-            if exercise_template_id not in exercise_templates:
-                exercise_template = await client.get_exercise_template(
-                    exercise_template_id
-                )
-                exercise_templates[exercise_template_id] = exercise_template
-            else:
-                exercise_template = exercise_templates[exercise_template_id]
-
-            # Get all non warm up sets and ad them to the count for a body part
-            num_sets = len([s for s in exercise.sets if s.set_type != "warmup"])
-
-            primary_body_part = exercise_template.primary_muscle_group
-            body_part_counter[primary_body_part] += num_sets
-            # Do the same for the secondary muscle groups
-            for body_part in exercise_template.secondary_muscle_groups:
-                body_part_counter[
-                    body_part
-                ] += (
-                    num_sets  # weight volume on secondary muscle group arbitrarily less
-                )
-
-    print(body_part_counter)
 
 
 if __name__ == "__main__":
-    from hevy.conf import initialise_app
+    from reporting.conf import initialise_app
 
     initialise_app()
     asyncio.run(main())
