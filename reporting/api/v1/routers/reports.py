@@ -8,7 +8,7 @@ from fastapi.responses import HTMLResponse
 import reporting.conf as conf
 from hevy.v1.client import HevyClientV1
 from collections import Counter
-from datetime import datetime,timedelta
+from datetime import datetime, timedelta
 
 LOGGER = logging.getLogger(__name__)
 ROUTER_PREFIX = "/api/v1/workouts"
@@ -18,6 +18,22 @@ router = APIRouter(
     responses={},
 )
 
+DEFAULT_THRESHOLDS = {
+    "shoulders": 10,
+    "biceps": 10,
+    "quadriceps": 10,
+    "triceps": 10,
+    "lats": 10,
+    "upper_back": 10,
+    "chest": 10,
+    "hamstrings": 10,
+    "glutes": 10,
+    "calves": 10,
+    "forearms": 10,
+    "traps": 10,
+    "neck": 10,
+}
+
 
 @router.get("/")
 async def get(request: Request):
@@ -26,7 +42,6 @@ async def get(request: Request):
     )
 
     exercise_templates = {}
-    thresholds = {}
     target_date = datetime.today() - timedelta(days=7)
     target_date = target_date.date()
     body_part_counter = Counter()
@@ -48,10 +63,10 @@ async def get(request: Request):
             primary_body_part = exercise_template.primary_muscle_group
             body_part_counter[primary_body_part] += num_sets
             for body_part in exercise_template.secondary_muscle_groups:
-                body_part_counter[
-                    body_part
-                ] += (
-                    num_sets
-                )
+                body_part_counter[body_part] += num_sets
 
-    print(body_part_counter)
+    for body_parts in body_part_counter:
+        if body_part_counter[body_parts] < DEFAULT_THRESHOLDS[body_parts]:
+            print(f"Warning: {body_parts} has been trained too little!")
+            print(f"Goal = {DEFAULT_THRESHOLDS[body_parts]}, Actual = {body_part_counter[body_parts]})")
+    

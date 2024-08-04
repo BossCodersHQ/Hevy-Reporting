@@ -18,6 +18,7 @@ def setup_logging():
 
 def setup_env_variables():
     """Setup env variables for the app to run properly"""
+    print("STARTINNGNG UP")
     print(get_dot_env_path())
     load_dotenv(dotenv_path=get_dot_env_path())
 
