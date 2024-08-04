@@ -30,6 +30,7 @@ class HevyClientV1:
         url = f"{url}?page={page}"
         return await self._get(session, url)
 
+    @alru_cache
     async def list_workouts_after_date(
         self, target_date: date
     ) -> AsyncGenerator[Workout, None]:
@@ -86,13 +87,3 @@ class HevyClientV1:
             data = await self._get(session=session, url=exercise_template_endpoint)
             exercise_template = ExerciseTemplate.model_validate(data)
             return exercise_template
-
-
-
-
-
-if __name__ == "__main__":
-    from reporting.conf import initialise_app
-
-    initialise_app()
-    asyncio.run(main())

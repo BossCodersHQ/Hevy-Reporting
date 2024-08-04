@@ -1,0 +1,20 @@
+{
+    "thresholds" : {
+        "thresholds": [
+          {"body_part": "shoulders", "threshold": 10},
+          {"body_part": "biceps", "threshold": 10},
+          {"body_part": "quadriceps", "threshold": 10},
+          {"body_part": "triceps", "threshold": 10},
+          {"body_part": "lats", "threshold": 10},
+          {"body_part": "upper_back", "threshold": 10},
+          {"body_part": "chest", "threshold": 10},
+          {"body_part": "hamstrings", "threshold": 10},
+          {"body_part": "glutes", "threshold": 10},
+          {"body_part": "calves", "threshold": 10},
+          {"body_part": "forearms", "threshold": 10},
+          {"body_part": "traps", "threshold": 10},
+          {"body_part": "neck", "threshold": 10}
+        ]
+      }
+      
+}
