@@ -32,14 +32,7 @@ class Workout(BaseModel):
 
 
 
-class PaginatedWorkouts(BaseModel):
+class PaginatedWorkout(BaseModel):
     page:int
     page_count: int
     workouts: List[Workout]
-
-
-if __name__ == "__main__":
-    from pprint import pprint
-    from hevy.schemas.examples import EX_PAGINATED_WORKOUTS
-
-    pprint(PaginatedWorkouts.model_validate(EX_PAGINATED_WORKOUTS))
