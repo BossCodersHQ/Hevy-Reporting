@@ -1,3 +1,5 @@
+"""This file was created originally using chatgpt to parse responses on the Hevy API Swagger page"""
+
 from pydantic import BaseModel
 from typing import Optional, List, Union
 from datetime import datetime
@@ -27,7 +29,7 @@ class PostRoutinesRequestBody(BaseModel):
     exercises: List[PostRoutinesRequestExercise]
 
 
-class ExerciseTemplate(BaseModel):
+class ExerciseTemplate(BaseModel): 
     id: str  # example: "b459cba5-cd6d-463c-abd6-54f8eafcadcb"
     title: str  # example: "Bench Press (Barbell)"
     type: str  # example: "weight_reps"

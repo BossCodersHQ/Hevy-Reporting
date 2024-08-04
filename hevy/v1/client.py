@@ -5,7 +5,12 @@ import asyncio
 from datetime import datetime, date
 import hevy.conf as conf
 from hevy.v1.schemas.custom import PaginatedWorkouts
+from hevy.v1.schemas.base import Workout, ExerciseTemplate
+from typing import AsyncGenerator, Generator
+from collections import Counter
 
+WORKOUT_PREFIX = "/v1/workouts"
+EXERCISE_TEMPLATE_PREFIX = "/v1/exercise_templates"
 
 class HevyClientV1:
     def __init__(self, root_url: str, api_key: str):
@@ -23,9 +28,9 @@ class HevyClientV1:
         url = f"{url}?page={page}"
         return await self._get(session, url)
 
-    async def fetch_workouts_until_date(self, target_date: date):
+    async def list_workouts_after_date(self, target_date: date) -> AsyncGenerator[Workout, None]:
         page = 1
-        workouts_prefix = "/v1/workouts"
+        workouts_prefix = WORKOUT_PREFIX
         workouts_endpoint = f"{self.root_url}{workouts_prefix}"
         async with aiohttp.ClientSession() as session:
             while True:
@@ -44,18 +49,39 @@ class HevyClientV1:
                 # Update URL to next page
                 page += 1
 
+    async def get_exercise_type(self, id:str) -> ExerciseTemplate:
+        exercise_template_prefix = EXERCISE_TEMPLATE_PREFIX
+        exercise_template_endpoint = f"{self.root_url}{exercise_template_prefix}/{id}"
+        async with aiohttp.ClientSession() as session:
+            data = await self._get(session=session, url=exercise_template_endpoint)
+            exercise_template = ExerciseTemplate.model_validate(data)
+            return exercise_template
+
+
 
 async def main():
     client = HevyClientV1(
         root_url=conf.get_hevy_api_root_url(), api_key=conf.get_hevy_api_key()
     )
-    target_date = date(2024, 7, 29)
 
-    counter = 0
-    async for item in client.fetch_workouts_until_date(target_date):
-        
-        print(counter)
-        counter+=1
+    target_date = date(2024, 7, 29)
+    body_part_counter = Counter()
+    async for workout in client.list_workouts_after_date(target_date):
+        for exercise in workout.exercises:
+            exercise_template_id = exercise.exercise_template_id
+            exercise_template = await client.get_exercise_type(exercise_template_id)
+
+
+            primary_body_part = exercise_template.primary_muscle_group
+            body_part_counter[primary_body_part] += 1
+
+            for body_part in exercise_template.secondary_muscle_groups:
+                body_part_counter[body_part] += 1 # weight volume on secondary muscle group arbitrarily less
+
+    
+    print(body_part_counter)
+
+
 
 
 if __name__ == "__main__":
