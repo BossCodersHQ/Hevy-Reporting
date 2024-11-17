@@ -16,7 +16,7 @@ class VolumeReports(BaseModel):
     suggested_exercises: list
     volume_reports: List[VolumeReport]
 
-class BodyPart(Enum):
+class BodyPart(str, Enum):
     SHOULDERS = "shoulders"
     CHEST = "chest"
     BICEPS = "biceps"
@@ -31,11 +31,5 @@ class BodyPart(Enum):
     TRAPS = "traps"
     NECK = "neck"
 
-
-class Threshold(BaseModel):
-    body_part: BodyPart
-    threshold: int
-
 class Thresholds(BaseModel):
-    thresholds: List[Threshold]
-
+    thresholds: dict[BodyPart, int]

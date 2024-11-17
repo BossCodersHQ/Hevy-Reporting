@@ -30,10 +30,10 @@ class HevyClientV1:
         url = f"{url}?page={page}"
         return await self._get(session, url)
 
-    @alru_cache
     async def list_workouts_after_date(
         self, target_date: date
     ) -> AsyncGenerator[Workout, None]:
+        # TODO: Change this to use the /v1/workouts/events endpoint
         page = 1
         workouts_prefix = WORKOUT_PREFIX
         workouts_endpoint = f"{self.root_url}{workouts_prefix}"
