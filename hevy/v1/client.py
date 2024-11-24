@@ -17,7 +17,11 @@ EXERCISE_TEMPLATE_PREFIX = "/v1/exercise_templates"
 
 
 class HevyClientV1:
-    def __init__(self, root_url: str, api_key: str):
+    def __init__(
+            self,
+            root_url: str = conf.get_settings().hevy_api_root_url,
+            api_key: str = conf.get_settings().hevy_api_key
+        ):
         self.root_url = root_url
         self.api_key = api_key
         self.headers = headers = {"api-key": self.api_key}

@@ -48,6 +48,7 @@ async def generate_volume_report(target_date: date, thresholds: Thresholds) -> N
 
 
 async def get_body_part_counters(client: HevyClientV1, target_date: date):
+    """Get the number of sets for each body part after a given date"""
     body_part_counter = Counter()
     async for workout in client.list_workouts_after_date(target_date):
         print(f"Processing workout: {workout.id}, {workout.start_time}")

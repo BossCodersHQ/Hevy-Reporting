@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from reporting.api.v1.routers.reports import router as reports_router
+from reporting.api.v1.reports import router as reports_router
+from reporting.api.v1.workouts import router as workouts_router
 from contextlib import asynccontextmanager
 from reporting.conf import initialise_app
 
@@ -18,6 +19,10 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 app.include_router(reports_router)
+app.include_router(workouts_router)
+
+# Add tags to the app
+
 
 app.add_middleware(
     CORSMiddleware,

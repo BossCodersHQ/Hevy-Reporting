@@ -22,11 +22,11 @@ from reporting.schemas import Thresholds
 from reporting.services import reports
 
 LOGGER = logging.getLogger(__name__)
-ROUTER_PREFIX = "/api/v1/workouts"
 
 router = APIRouter(
-    prefix=ROUTER_PREFIX,
+    prefix="/api/v1/reports",
     responses={},
+    tags=["reports"],
 )
 
 

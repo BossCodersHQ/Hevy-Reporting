@@ -18,6 +18,7 @@ async-lru = "^2.0.4"
 uvicorn = "^0.30.5"
 pytest = "^8.3.3"
 pytest-asyncio = "^0.24.0"
+pydantic-settings = "^2.6.1"
 
 
 [build-system]
